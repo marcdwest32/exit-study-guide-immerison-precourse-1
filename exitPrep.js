@@ -14,15 +14,31 @@
 
 
 const pureShuffle = array => {
-    // your code here
+    let myArray = Array.from(array);
+    
+    for(let i = myArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [myArray[i], myArray[j]] = [myArray[j], myArray[i]];
+    }
+    return myArray;
 };
 
-var isPalindrome = (string) => {
-    // your code here
+const isPalindrome = (string) => {
+    string = string.toLowerCase();
+    if (!string) {
+        return undefined;
+    }
+    return string === string.split('').reverse().join('');
 }
 
-const mergeObjects = obj => {
-    // your code here
+const mergeObjects = (...objs) => {
+    return Object.assign(...objs, {});
+    // _.each(objs, (object) => {
+    //     _.each(object, (value, key) => {
+    //         obj[key] = value;
+    //     })
+    // })
+    // return obj;
 };
 
 
@@ -32,11 +48,25 @@ const mergeObjects = obj => {
 //////////////////////////////////////////////////////
 
 var replaceValuesInObj = (obj, value, newValue) => {
-    // your code here
+    for (let key in obj) {
+        if(obj[key] === value) {
+            obj[key] = newValue
+        } else if (typeof obj[key] === 'object') {
+            replaceValuesInObj(obj[key], value, newValue)
+        }
+    }
+    return obj;
 };
 
 var addKeysToExistingObj = (obj, newKey, newValue) => {
-    // your code here
+    for (let key in obj) {
+        if(typeof obj[key] === 'object') {
+            addKeysToExistingObj(obj[key], newKey, newValue);
+        } else if (!obj.hasOwnProperty(newKey)) {
+            obj[newKey] = newValue;
+        }
+    }
+    return obj;
 };
 
 var map = (arr, func) => {

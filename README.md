@@ -62,13 +62,13 @@ const obj = {
 };
 
 addKeysToExistingObj(obj, 'foxtrot', 'victor');
-// {
-//   golf: {
-//     zebra: 'charlie',
-//     foxtrot: 'victor'
-//   },
-//   foxtrot: 'victor'
-// }
+{
+  golf: {
+    zebra: 'charlie',
+    foxtrot: 'victor'
+  },
+  foxtrot: 'victor'
+}
 
 ```
 
