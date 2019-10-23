@@ -32,7 +32,7 @@ const isPalindrome = (string) => {
 }
 
 const mergeObjects = (...objs) => {
-    return Object.assign(...objs, {});
+    return Object.assign(...objs);
     // _.each(objs, (object) => {
     //     _.each(object, (value, key) => {
     //         obj[key] = value;
@@ -41,7 +41,17 @@ const mergeObjects = (...objs) => {
     // return obj;
 };
 
-
+const semiMerge = (object, ...objs) => {
+    objs.forEach(obj => {
+        for(let key in obj) {
+            if(obj[key]) {
+                object[key] = obj[key]
+            }
+        }
+    })
+    console.log(object)
+    return object
+}
 
 //////////////////////////////////////////////////////
 // USING RECURSION
@@ -69,8 +79,14 @@ var addKeysToExistingObj = (obj, newKey, newValue) => {
     return obj;
 };
 
-var map = (arr, func) => {
-    // your code here
+var map = (arr, func, result = []) => {
+    if(arr.length === 0) {
+        return [];
+    } else {
+        result.push(func(arr[0]));
+        map(arr.slice(1), func)
+    }
+    return result;
 }
 
 
@@ -93,8 +109,15 @@ var comedians = [
 
 /* Solve by chaining native methods of map and filter only */
 var comediansFilteredAndMapped = (comedians) => {
-    // Your code here
-
+    return comedians.filter(comedian => comedian.begin >= 2005 && comedian.actor.length > 10)
+        .map(comedian => {
+            comedian = {
+                appearanceNumber: `#${comedian.number}`,
+                name: comedian.actor,
+                seasonsActive: comedian.end - (comedian.begin - 1),
+            }
+            return comedian
+        })
 };
 
 var comedianNamesFilteredAndMapped = (comedians) => {
@@ -107,8 +130,17 @@ var comedianNamesFilteredAndMapped = (comedians) => {
 
 /* Solve by using native method of reduce only */
 var comediansReduced1 = (comedians) => {
-    // Your code here
-
+    return comedians.reduce((actors, comedian) => {
+        if (comedian.begin >= 2005 && comedian.actor.length > 10) {
+            const newComedian = {
+                appearanceNumber: `#${comedian.number}`,
+                name: comedian.actor,
+                seasonsActive: comedian.end - (comedian.begin - 1),
+        }
+        actors.push(newComedian)
+        }
+        return actors;
+    }, [])
 };
 
 var comediansReduced2 = (comedians) => {

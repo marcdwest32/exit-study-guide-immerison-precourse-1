@@ -85,6 +85,34 @@ describe('3) mergeObjects', function() {
     });
 });
 
+describe('3.5) semiMerge', function () {
+    const input = {
+        banana: 'yellow',
+        apple: 'red',
+        carrot: 'purple',
+        spinach: 'green',
+    },
+        input2 = {
+            shoe: 'leather',
+            sweater: 'cashmere blend',
+            pants: 'cotton twill',
+            bag: 'canvas',
+            spinach: 'stain',
+        };
+
+    const output = semiMerge(input, input2);
+
+    it('should return an object', function () {
+        expect(typeof (semiMerge(input, input2))).to.equal('object');
+    });
+
+    it('should return an object with the appropriate key/value pairs', function () {
+        expect(output.hasOwnProperty('pants')).to.equal(true);
+        expect(output.hasOwnProperty('apple')).to.equal(true);
+        expect(output.spinach).to.equal('green');
+    })
+});
+
 describe('4) replaceValuesInObj', function () {
 
     var tallyKeys = function (obj) {
